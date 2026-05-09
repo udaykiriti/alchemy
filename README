@@ -7,5 +7,3 @@ some rust libraries::
 - `rayon`
 - `serde`
 - `strum`
-
-clean file names too.
