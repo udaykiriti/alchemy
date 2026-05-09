@@ -1,5 +1,7 @@
 use serde::{Deserialize, Serialize};
 
+use crate::output::print_separator;
+
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 enum QuestStatus {
@@ -104,8 +106,4 @@ fn sample_quests() -> Vec<Quest> {
             party: vec![String::from("Cael")],
         },
     ]
-}
-
-fn print_separator() {
-    println!("--------------------------------------------------");
 }

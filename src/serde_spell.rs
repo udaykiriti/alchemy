@@ -1,5 +1,7 @@
 use serde::{Deserialize, Serialize};
 
+use crate::output::print_separator;
+
 #[derive(Serialize, Deserialize, Debug)]
 struct Spell {
     name: String,
@@ -22,8 +24,4 @@ pub fn run() {
     let restored: Spell = serde_json::from_str(&json).expect("json should deserialize");
     println!("Round-tripped value: {restored:?}");
     print_separator();
-}
-
-fn print_separator() {
-    println!("--------------------------------------------------");
 }

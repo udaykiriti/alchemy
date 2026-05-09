@@ -1,5 +1,7 @@
 use itertools::Itertools;
 
+use crate::output::print_separator;
+
 struct Ingredient {
     name: &'static str,
     kind: &'static str,
@@ -45,8 +47,4 @@ pub fn run() {
         .join(" | ");
     println!("Packed: {shopping_line}");
     print_separator();
-}
-
-fn print_separator() {
-    println!("--------------------------------------------------");
 }

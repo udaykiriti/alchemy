@@ -1,5 +1,7 @@
 use rayon::prelude::*;
 
+use crate::output::print_separator;
+
 pub fn run() {
     println!("Parallel number transform");
 
@@ -11,8 +13,4 @@ pub fn run() {
 
     println!("Scaled values: {values:?}");
     print_separator();
-}
-
-fn print_separator() {
-    println!("--------------------------------------------------");
 }

@@ -1,5 +1,7 @@
 use rayon::prelude::*;
 
+use crate::output::print_separator;
+
 const WIDTH: usize = 72;
 const HEIGHT: usize = 24;
 const MAX_ITERATIONS: u32 = 40;
@@ -51,8 +53,4 @@ fn mandelbrot_escape(real: f64, imaginary: f64, max_iterations: u32) -> u32 {
     }
 
     iterations
-}
-
-fn print_separator() {
-    println!("--------------------------------------------------");
 }
