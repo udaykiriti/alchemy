@@ -1,6 +1,6 @@
 use rayon::prelude::*;
 
-use crate::output::print_separator;
+use crate::output::{print_section, print_separator};
 
 const WIDTH: usize = 72;
 const HEIGHT: usize = 24;
@@ -8,7 +8,7 @@ const MAX_ITERATIONS: u32 = 40;
 const PALETTE: [char; 10] = [' ', '.', ',', ':', ';', 'o', 'x', '%', '#', '@'];
 
 pub fn run() {
-    println!("Parallel Mandelbrot render");
+    print_section("Parallel Mandelbrot render");
 
     let rows: Vec<String> = (0..HEIGHT)
         .into_par_iter()
@@ -53,4 +53,25 @@ fn mandelbrot_escape(real: f64, imaginary: f64, max_iterations: u32) -> u32 {
     }
 
     iterations
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{mandelbrot_escape, scale};
+
+    #[test]
+    fn scale_maps_bounds() {
+        assert_eq!(scale(0, 10, -2.0, 2.0), -2.0);
+        assert_eq!(scale(10, 10, -2.0, 2.0), 2.0);
+    }
+
+    #[test]
+    fn mandelbrot_escape_stays_bounded_at_origin() {
+        assert_eq!(mandelbrot_escape(0.0, 0.0, 12), 12);
+    }
+
+    #[test]
+    fn mandelbrot_escape_diverges_quickly_far_from_set() {
+        assert!(mandelbrot_escape(2.0, 2.0, 12) < 3);
+    }
 }

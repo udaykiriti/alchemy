@@ -7,3 +7,5 @@ some rust libraries::
 - `rayon`
 - `serde`
 - `strum`
+
+some examples print simple terminal renders too.

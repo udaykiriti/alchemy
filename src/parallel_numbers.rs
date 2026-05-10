@@ -1,16 +1,13 @@
 use rayon::prelude::*;
 
-use crate::output::print_separator;
+use crate::output::{print_section, print_separator};
 
 pub fn run() {
-    println!("Parallel number transform");
+    print_section("Parallel number transform");
 
-    let mut values = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    let values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    let scaled_values: Vec<_> = values.par_iter().map(|value| value * 10).collect();
 
-    values.par_iter_mut().for_each(|value| {
-        *value *= 10;
-    });
-
-    println!("Scaled values: {values:?}");
+    println!("Scaled values: {scaled_values:?}");
     print_separator();
 }

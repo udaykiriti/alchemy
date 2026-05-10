@@ -1,6 +1,10 @@
+use std::borrow::Cow;
+
 use serde::{Deserialize, Serialize};
 
-use crate::output::print_separator;
+use crate::output::{print_section, print_separator};
+
+const HIGH_PRIORITY_DANGER_LEVEL: u8 = 6;
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -13,21 +17,21 @@ enum QuestStatus {
 #[derive(Debug, Serialize, Deserialize)]
 struct Reward {
     gold: u32,
-    artifacts: Vec<String>,
+    artifacts: Vec<Cow<'static, str>>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 struct Quest {
-    title: String,
-    region: String,
+    title: Cow<'static, str>,
+    region: Cow<'static, str>,
     danger_level: u8,
     status: QuestStatus,
     reward: Reward,
-    party: Vec<String>,
+    party: Vec<Cow<'static, str>>,
 }
 
 pub fn run() {
-    println!("Quest JSON example");
+    print_section("Quest JSON example");
 
     let quests = sample_quests();
     let json = serde_json::to_string_pretty(&quests).expect("quests should serialize");
@@ -48,7 +52,10 @@ pub fn run() {
         highest_danger
     );
 
-    for quest in restored.iter().filter(|quest| quest.danger_level >= 6) {
+    for quest in restored
+        .iter()
+        .filter(|quest| quest.danger_level >= HIGH_PRIORITY_DANGER_LEVEL)
+    {
         println!(
             "High-priority quest: {} in {} with {} party members.",
             quest.title,
@@ -63,47 +70,47 @@ pub fn run() {
 fn sample_quests() -> Vec<Quest> {
     vec![
         Quest {
-            title: String::from("Silence the Ember Wyrm"),
-            region: String::from("Ashen Peaks"),
+            title: Cow::Borrowed("Silence the Ember Wyrm"),
+            region: Cow::Borrowed("Ashen Peaks"),
             danger_level: 9,
             status: QuestStatus::InProgress,
             reward: Reward {
                 gold: 1800,
                 artifacts: vec![
-                    String::from("wyrm scale shield"),
-                    String::from("emberglass vial"),
+                    Cow::Borrowed("wyrm scale shield"),
+                    Cow::Borrowed("emberglass vial"),
                 ],
             },
             party: vec![
-                String::from("Mira"),
-                String::from("Tovin"),
-                String::from("Salt"),
+                Cow::Borrowed("Mira"),
+                Cow::Borrowed("Tovin"),
+                Cow::Borrowed("Salt"),
             ],
         },
         Quest {
-            title: String::from("Map the Sunken Library"),
-            region: String::from("Drowned Quarter"),
+            title: Cow::Borrowed("Map the Sunken Library"),
+            region: Cow::Borrowed("Drowned Quarter"),
             danger_level: 6,
             status: QuestStatus::Posted,
             reward: Reward {
                 gold: 950,
                 artifacts: vec![
-                    String::from("waterproof codex"),
-                    String::from("brass astrolabe"),
+                    Cow::Borrowed("waterproof codex"),
+                    Cow::Borrowed("brass astrolabe"),
                 ],
             },
-            party: vec![String::from("Iris"), String::from("Fen")],
+            party: vec![Cow::Borrowed("Iris"), Cow::Borrowed("Fen")],
         },
         Quest {
-            title: String::from("Negotiate with the Moss Court"),
-            region: String::from("Verdant Hollow"),
+            title: Cow::Borrowed("Negotiate with the Moss Court"),
+            region: Cow::Borrowed("Verdant Hollow"),
             danger_level: 4,
             status: QuestStatus::Completed,
             reward: Reward {
                 gold: 600,
-                artifacts: vec![String::from("living treaty seal")],
+                artifacts: vec![Cow::Borrowed("living treaty seal")],
             },
-            party: vec![String::from("Cael")],
+            party: vec![Cow::Borrowed("Cael")],
         },
     ]
 }

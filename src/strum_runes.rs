@@ -1,6 +1,6 @@
 use strum::{Display, EnumIter, EnumString, IntoEnumIterator};
 
-use crate::output::print_separator;
+use crate::output::{print_section, print_separator};
 
 #[derive(Debug, Display, EnumIter, EnumString, PartialEq, Eq)]
 #[strum(serialize_all = "snake_case")]
@@ -11,7 +11,7 @@ enum Rune {
 }
 
 pub fn run() {
-    println!("Strum enum example");
+    print_section("Strum enum example");
 
     for rune in Rune::iter() {
         println!("Known rune: {rune}");

@@ -1,6 +1,6 @@
 use itertools::Itertools;
 
-use crate::output::print_separator;
+use crate::output::{print_section, print_separator};
 
 struct Ingredient {
     name: &'static str,
@@ -8,7 +8,7 @@ struct Ingredient {
 }
 
 pub fn run() {
-    println!("Itertools example");
+    print_section("Itertools example");
 
     let satchel = [
         Ingredient {

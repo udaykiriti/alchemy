@@ -1,19 +1,21 @@
+use std::borrow::Cow;
+
 use serde::{Deserialize, Serialize};
 
-use crate::output::print_separator;
+use crate::output::{print_section, print_separator};
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Spell {
-    name: String,
+    name: Cow<'static, str>,
     mana_cost: u32,
     restricted: bool,
 }
 
 pub fn run() {
-    println!("Serialize a struct");
+    print_section("Serialize a struct");
 
     let spell = Spell {
-        name: String::from("Fireball"),
+        name: Cow::Borrowed("Fireball"),
         mana_cost: 50,
         restricted: false,
     };
