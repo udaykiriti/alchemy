@@ -6,7 +6,7 @@ mod quest_json;
 mod serde_spell;
 mod strum_runes;
 
-struct Demo {
+struct Snippet {
     name: &'static str,
     run: fn(),
 }
@@ -14,35 +14,35 @@ struct Demo {
 fn main() {
     output::print_section("Alchemy demos");
 
-    let demos = [
-        Demo {
+    let snippets = [
+        Snippet {
             name: "Itertools groups",
             run: itertools_groups::run,
         },
-        Demo {
+        Snippet {
             name: "Strum runes",
             run: strum_runes::run,
         },
-        Demo {
+        Snippet {
             name: "Parallel numbers",
             run: parallel_numbers::run,
         },
-        Demo {
+        Snippet {
             name: "Serde spell",
             run: serde_spell::run,
         },
-        Demo {
+        Snippet {
             name: "Mandelbrot ASCII",
             run: mandelbrot_ascii::run,
         },
-        Demo {
+        Snippet {
             name: "Quest JSON",
             run: quest_json::run,
         },
     ];
 
-    for (index, demo) in demos.iter().enumerate() {
-        println!("{}. {}", index + 1, demo.name);
-        (demo.run)();
+    for (index, snippet) in snippets.iter().enumerate() {
+        println!("\n{}. {}", index + 1, snippet.name);
+        (snippet.run)();
     }
 }

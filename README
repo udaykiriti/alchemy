@@ -1,9 +1,8 @@
 Alchemy[noThing]
 =======
 
-some rust libraries::
-
 - `itertools`
 - `rayon`
 - `serde`
 - `strum`
+
